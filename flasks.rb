@@ -9,7 +9,7 @@ class Flask
     @liquids.concat(liquid)
   end
 
-  def remove_liquid
+  def pop_liquid
     @liquids.pop
   end
 
