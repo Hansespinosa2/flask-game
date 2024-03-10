@@ -6,11 +6,15 @@ class Flask
   end
 
   def add_liquid(liquid)
-    @liquids.concat(liquid)
+    @liquids.push(liquid)
   end
 
   def pop_liquid
     @liquids.pop
+  end
+
+  def display_flask(i=0)
+    p "Flask #{i}: #{@liquids}"
   end
 
 
