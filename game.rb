@@ -1,4 +1,4 @@
-
+require_relative 'flasks.rb'
 
 class Game
 
@@ -9,15 +9,18 @@ class Game
   end
 
   def won?
-    @flasks.all? { |flask| flask.uniq.length == 1 }
+    first = @flasks.all? { |flask| flask.liquids.uniq.length == 1 }
+    # second = @flasks.all?  { |flask| flask.liquids.length == flask.max_liquids or flask.liquids.empty? }
+    # [first,second].all? { |it| it == true }
+    #Current issue is present where as long as each flask has only one color it passes
   end
 
-  def create_game(n_colors=nil,seed=nil)
+  def create_game(n_colors,seed)
     if n_colors.nil?
       n_colors = rand(4..@possible_colors.length)
     end
 
-    if seed != nil? then
+    if !seed.nil? then
       srand(seed)
     end
 
@@ -66,14 +69,20 @@ class Game
 
     def play(n_colors=nil,seed=nil)
       self.create_game(n_colors,seed)
-      display_game
-
-      input = gets.chomp
-      until self.won? or input=='restart'
-        p 'Input pouring attempt in format 1->2'
 
 
 
+      until self.won?
+
+        display_game
+
+        p 'Input pouring attempt in format 1->2 or restart'
+        input = gets.chomp
+
+        if input == 'restart' then
+          break
+        end
+        self.attempt_pour(@flasks[input.split('')[0].to_i], @flasks[input.split('')[3].to_i])
       end
     end
 
