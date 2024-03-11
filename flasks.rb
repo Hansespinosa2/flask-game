@@ -14,7 +14,7 @@ class Flask
   end
 
   def display_flask(i=0)
-    p "Flask #{i}: #{@liquids}"
+    p "Flask #{i}: #{@liquids} w length#{@liquids.length}"
   end
 
 
